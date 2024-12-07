@@ -1,13 +1,15 @@
 import "react";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [isAuthed, setIsAuthed] = useState(false);
+
+  const [cookies, setCookies] = useCookies(['token']);
 
   return (
-    <AuthContext.Provider value={{ isAuthed, setIsAuthed }}>
+    <AuthContext.Provider value={{ cookies, setCookies }}>
       {children}
     </AuthContext.Provider>
   );

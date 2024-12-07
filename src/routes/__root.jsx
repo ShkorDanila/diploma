@@ -1,19 +1,16 @@
 import "react";
 import { Outlet, createRootRoute, redirect } from "@tanstack/react-router";
 import { useAuth } from "../provider/authProvider";
-import { AuthPage } from "../pages/AuthPage";
-import { useEffect } from "react";
+import { AuthPage } from "../pages/AuthPage/AuthPage";
 
 export const Route = createRootRoute({
   component: RootComponent,
 });
 
 function RootComponent() {
-  const { isAuthed } = useAuth();
+  const { cookies } = useAuth();
 
-  if (!isAuthed) {
-    return <AuthPage />;
-  }
-
-  return <Outlet />;
+  return (
+    <div className='h-full'>{cookies?.token ? <Outlet /> : <AuthPage />}</div>
+  );
 }
